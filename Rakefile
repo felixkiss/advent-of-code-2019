@@ -78,9 +78,11 @@ end
 
 task :day3 do
   require_relative '3/wire'
-  wire1, wire2 = File.read('3/wires.txt').lines.map { |wire| Wire.from_string(wire) }
+  wire1, wire2 = File.read('3/input').lines.map { |wire| Wire.from_string(wire) }
 
   # What is the Manhattan distance from the central port to the closest intersection?
+
+  wire1, wire2 = File.read('3/wires.txt').lines.map { |wire| Wire.from_string(wire) }
   closest_distance = wire1.intersection_points(wire2).map(&:manhattan_distance).min
   puts "1) Manhattan distance: #{closest_distance}"
 
