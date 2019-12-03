@@ -40,11 +40,12 @@ task :day2 do
     memory.join(',')
   }
 
-  program = File.read('2/program.txt')
-  program_restored = replace_addresses.(program, 1 => 12, 2 => 2)
+  program = File.read('2/program')
+  program_restored = replace_addresses.call(program, 1 => 12, 2 => 2)
   puts "1) #{Computer.run(program_restored)}"
 
-  # To complete the gravity assist, you need to determine what pair of inputs produces the output 19690720.
+  # To complete the gravity assist, you need to determine what pair of inputs
+  # produces the output 19690720.
   #
   # The inputs should still be provided to the program by replacing the values
   # at addresses 1 and 2, just like before. In this program, the value placed in
@@ -59,16 +60,18 @@ task :day2 do
   # Find the input noun and verb that cause the program to produce the output
   # 19690720. What is 100 * noun + verb?
   # (For example, if noun=12 and verb=2, the answer would be 1202.)
+
+
   (0..99).to_a.product((0..99).to_a).each do |pair|
     noun, verb = pair
 
-    program_for_iteration = replace_addresses.(program, 1 => noun, 2 => verb)
+    program_for_iteration = replace_addresses.call(program, 1 => noun, 2 => verb)
 
     output = Computer.run(program_for_iteration)
     result = output.split(',').first
 
     if result == '19690720'
-      puts "2) Found input values: noun=#{noun} and verb=#{verb}"
+    puts "2) Found input values: noun=#{noun} and verb=#{verb}" if result == '19690720'
     end
   end
 end
