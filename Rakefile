@@ -60,8 +60,6 @@ task :day2 do
   # Find the input noun and verb that cause the program to produce the output
   # 19690720. What is 100 * noun + verb?
   # (For example, if noun=12 and verb=2, the answer would be 1202.)
-
-
   (0..99).to_a.product((0..99).to_a).each do |pair|
     noun, verb = pair
 
@@ -81,8 +79,6 @@ task :day3 do
   wire1, wire2 = File.read('3/input').lines.map { |wire| Wire.from_string(wire) }
 
   # What is the Manhattan distance from the central port to the closest intersection?
-
-  wire1, wire2 = File.read('3/wires.txt').lines.map { |wire| Wire.from_string(wire) }
   closest_distance = wire1.intersection_points(wire2).map(&:manhattan_distance).min
   puts "1) Manhattan distance: #{closest_distance}"
 

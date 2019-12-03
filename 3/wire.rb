@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'coordinate'
+require_relative 'point'
+require_relative 'position'
 
 class Wire
   def self.from_string(string)
@@ -12,14 +13,20 @@ class Wire
   end
 
   def intersection_points(other_wire)
-    coordinates & other_wire.coordinates - [Coordinate.zero]
+    points & other_wire.points - [Point.zero]
+  end
+
+  def intersection_positions(other_wire)
+    intersection_points(other_wire).map do |point|
+      Position.new(point, steps_to(point) + other_wire.steps_to(point))
+    end
   end
 
   protected
 
-  # Returns all coordinates this wire is touching
-  def coordinates
-    [Coordinate.zero].tap do |coordinates|
+  # Returns all points this wire is touching
+  def points
+    [Point.zero].tap do |points|
       x = y = 0 # Start at central port
 
       @steps.each do |step|
@@ -34,9 +41,14 @@ class Wire
           when 'R' then x += 1
           end
 
-          coordinates << Coordinate.new(x, y)
+          points << Point.new(x, y)
         end
       end
     end
+  end
+
+  # Returns steps necessary to go to the given point
+  def steps_to(point)
+    points.index(point)
   end
 end
