@@ -21,4 +21,10 @@ class PasswordValidatorTest < Minitest::Test
     refute PasswordValidator.valid?('11111')
     refute PasswordValidator.valid?('1111111')
   end
+
+  def test_password_that_doesnt_have_a_digit_repeated_exactly_twice_is_invalid
+    assert PasswordValidator.valid?('112233')
+    assert PasswordValidator.valid?('111122')
+    refute PasswordValidator.valid?('123444')
+  end
 end

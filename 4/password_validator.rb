@@ -14,6 +14,10 @@ class PasswordValidator
     #    increase or stay the same (like 111123 or 135679).
     return false unless password.chars.sort == password.chars
 
+    #  - two adjacent matching digits are not part of a larger group of matching
+    #    digits (i.e. at least one digit has to repeat exactly twice).
+    return false unless password.chars.group_by(&:to_s).any? { |_, occurrences| occurrences.size == 2 }
+
     true
   end
 end
