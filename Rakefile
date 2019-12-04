@@ -86,3 +86,13 @@ task :day3 do
   fewest_steps = wire1.intersection_positions(wire2).map(&:steps_required).min
   puts "2) Fewest steps to intersection: #{fewest_steps}"
 end
+
+task :day4 do
+  require_relative '4/password_validator'
+
+  # How many different passwords within the range given in your puzzle input meet these criteria?
+  # Your puzzle input is 145852-616942.
+
+  valid_passwords = (145852..616942).select { |i| PasswordValidator.valid?(i.to_s) }
+  puts "Number of valid passwords: #{valid_passwords.size}"
+end
